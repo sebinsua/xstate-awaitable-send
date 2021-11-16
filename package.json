@@ -1,6 +1,6 @@
 {
   "name": "xstate-awaitable-send",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "Fire an event into an XState `Machine` and then wait for it to stop transitioningg.",
   "keywords": [
     "xstate",
