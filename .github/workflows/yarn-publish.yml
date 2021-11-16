@@ -15,15 +15,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org/'
-          always-auth: true
       - run: yarn --frozen-lockfile
       - run: yarn build
-      - run: yarn npm publish --access public
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
+      - run: |
+          yarn config set npmPublishRegistry 'https://registry.npmjs.org/'
+          yarn config set npmAuthToken "${{secrets.NPM_TOKEN}}"
+          yarn npm publish --access public
+        
   publish-gpr:
     runs-on: ubuntu-latest
     permissions:
@@ -34,12 +32,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com/'
-          always-auth: true
       - run: yarn --frozen-lockfile
       - run: yarn build         
-      - run: yarn npm publish
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          yarn config set npmPublishRegistry 'https://npm.pkg.github.com/'
+          yarn config set npmAuthToken "${{secrets.GITHUB_TOKEN}}"
+          yarn npm publish --access public
            
