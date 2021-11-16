@@ -21,22 +21,4 @@ jobs:
           yarn config set npmPublishRegistry 'https://registry.npmjs.org/'
           yarn config set npmAuthToken "${{secrets.NPM_TOKEN}}"
           yarn npm publish --access public
-        
-  publish-gpr:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          scope: '@sebinsua'
-      - run: yarn --frozen-lockfile
-      - run: yarn build         
-      - run: |
-          yarn config set npmPublishRegistry 'https://npm.pkg.github.com/'
-          yarn config set npmAuthToken "${{secrets.GITHUB_TOKEN}}"
-          yarn npm publish --access public
-           
+ 
